@@ -16,6 +16,8 @@ const winningConditions = [
 let board;
 let turn;
 let win;
+let xWin = 0;
+let oWin = 0;
 
 ///////////////////// CACHED ELEMENT REFERENCES /////////////////////
 
@@ -46,6 +48,7 @@ function render() {
 
   message.textContent =
     win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
+  winCount.textContent = `X: ${xWin} O: ${oWin}`
 }
 
 function takeTurn(e) {
@@ -59,6 +62,7 @@ function takeTurn(e) {
       turn = turn === "X" ? "O" : "X";
       win = getWinner();
 
+      updateWins(win)
       render();
     }
   }
@@ -78,4 +82,12 @@ function getWinner() {
   });
 
   return winner ? winner : board.includes("") ? null : "T";
+}
+
+function updateWins(a) {
+  if (win === "X") {
+    xWin++
+  } else if (win === "O") {
+    oWin++
+  }
 }
