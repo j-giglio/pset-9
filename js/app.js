@@ -31,6 +31,7 @@ window.onload = init;
 
 document.getElementById("board").onclick = takeTurn;
 document.getElementById("reset-button").onclick = init;
+document.getElementById("win-reset").onclick = reset;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
@@ -49,7 +50,7 @@ function render() {
 
   message.textContent =
     win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
-  winCount.textContent = `X: ${xWin} O: ${oWin}`
+  winCount.textContent = `X: ${xWin}    O: ${oWin}`
 }
 
 function takeTurn(e) {
@@ -91,4 +92,10 @@ function updateWins(a) {
   } else if (a === "O") {
     oWin++
   }
+}
+
+function reset() {
+  xWin = 0;
+  oWin = 0;
+  winCount.textContent = "X: 0    O: 0";
 }

@@ -64,3 +64,24 @@ h2 {
   color: white;
   cursor: pointer;
 }
+
+#win-reset {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  font-size: 17px;
+  line-height: 30px;
+  margin: 1%;
+  text-align: center;
+  width: 270px;
+}
+
+#win-reset:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+#winCount {
+  
+}
