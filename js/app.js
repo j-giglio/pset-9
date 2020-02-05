@@ -18,6 +18,7 @@ let turn;
 let win;
 let xWin = 0;
 let oWin = 0;
+let tieCount = 0;
 
 ///////////////////// CACHED ELEMENT REFERENCES /////////////////////
 
@@ -32,15 +33,17 @@ window.onload = init;
 document.getElementById("board").onclick = takeTurn;
 document.getElementById("reset-button").onclick = init;
 document.getElementById("win-reset").onclick = reset;
+document.getElementById("x-button").onclick = setTurn("X");
+document.getElementById("o-button").onclick = setTurn("O");
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
   board = ["", "", "", "", "", "", "", "", ""];
-  turn = "X";
+  message.innerHTML = "Turn: X or O?"
   win = null;
 
-  render();
+    render();
 }
 
 function render() {
@@ -50,7 +53,7 @@ function render() {
 
   message.textContent =
     win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
-  winCount.textContent = `X: ${xWin}    O: ${oWin}`
+  winCount.textContent = `X: ${xWin} | O: ${oWin} | Tie: ${tieCount}`
 }
 
 function takeTurn(e) {
@@ -91,11 +94,18 @@ function updateWins(a) {
     xWin++
   } else if (a === "O") {
     oWin++
+  } else if (a === "T") {
+    tieCount++
   }
 }
 
 function reset() {
   xWin = 0;
   oWin = 0;
-  winCount.textContent = "X: 0    O: 0";
+  tieCount = 0;
+  winCount.textContent = "X: 0 | O: 0 | Tie: 0";
+}
+
+function setTurn(f) {
+  turn = f
 }
