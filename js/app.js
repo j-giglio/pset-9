@@ -23,6 +23,7 @@ let oWin = 0;
 
 const squares = Array.from(document.querySelectorAll("#board div"));
 const message = document.querySelector("h2");
+const winCount = document.getElementById("winCount");
 
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
