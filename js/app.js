@@ -85,9 +85,9 @@ function getWinner() {
 }
 
 function updateWins(a) {
-  if (win === "X") {
+  if (a === "X") {
     xWin++
-  } else if (win === "O") {
+  } else if (a === "O") {
     oWin++
   }
 }
