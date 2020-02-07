@@ -33,17 +33,20 @@ window.onload = init;
 document.getElementById("board").onclick = takeTurn;
 document.getElementById("reset-button").onclick = init;
 document.getElementById("win-reset").onclick = reset;
-document.getElementById("x-button").onclick = setTurn("X");
-document.getElementById("o-button").onclick = setTurn("O");
+document.getElementById("x-button").onclick = setTurn;
+document.getElementById("o-button").onclick = setTurn;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
+  turn = null;
   board = ["", "", "", "", "", "", "", "", ""];
-  message.innerHTML = "Turn: X or O?"
+  message.innerHTML = "Turn: X or O?";
   win = null;
 
+  if (turn) {
     render();
+  }
 }
 
 function render() {
@@ -52,7 +55,8 @@ function render() {
   });
 
   message.textContent =
-    win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
+    win === "T" ? "It's a tie!"
+      : win ? `${win} wins!` : `Turn: ${turn}`;
   winCount.textContent = `X: ${xWin} | O: ${oWin} | Tie: ${tieCount}`
 }
 
@@ -107,5 +111,7 @@ function reset() {
 }
 
 function setTurn(f) {
-  turn = f
+  console.log("hffovuahoifghfoi");
+  turn = f;
+  console.log(turn);
 }
