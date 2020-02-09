@@ -25,6 +25,11 @@ let tieCount = 0;
 const squares = Array.from(document.querySelectorAll("#board div"));
 const message = document.querySelector("h2");
 const winCount = document.getElementById("winCount");
+const messagePartOne = document.getElementById("messagePartOne");
+const xButton = document.getElementById("x-button");
+const messagePartTwo = document.getElementById("messagePartTwo");
+const oButton = document.getElementById("o-button");
+const messagePartThree = document.getElementById("messagePartThree");
 
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
@@ -33,15 +38,19 @@ window.onload = init;
 document.getElementById("board").onclick = takeTurn;
 document.getElementById("reset-button").onclick = init;
 document.getElementById("win-reset").onclick = reset;
-document.getElementById("x-button").onclick = setTurn;
-document.getElementById("o-button").onclick = setTurn;
+xButton.onclick = setTurn;
+oButton.onclick = setTurn;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
   turn = null;
   board = ["", "", "", "", "", "", "", "", ""];
-  message.innerHTML = "Turn: X or O?";
+  message.appendChild(messagePartOne);
+  message.appendChild(xButton);
+  message.appendChild(messagePartTwo);
+  message.appendChild(oButton);
+  message.appendChild(messagePartThree);
   win = null;
 
   if (turn) {
@@ -54,6 +63,12 @@ function render() {
     squares[index].textContent = mark;
   });
 
+  messagePartOne.remove();
+  xButton.remove();
+  messagePartTwo.remove();
+  oButton.remove();
+  messagePartThree.remove();
+
   message.textContent =
     win === "T" ? "It's a tie!"
       : win ? `${win} wins!` : `Turn: ${turn}`;
@@ -61,18 +76,20 @@ function render() {
 }
 
 function takeTurn(e) {
-  if (!win) {
-    let index = squares.findIndex(function(square) {
-      return square === e.target;
-    });
+  if(turn) {
+    if (!win) {
+      let index = squares.findIndex(function(square) {
+        return square === e.target;
+      });
 
-    if (board[index] === "") {
-      board[index] = turn;
-      turn = turn === "X" ? "O" : "X";
-      win = getWinner();
+      if (board[index] === "") {
+        board[index] = turn;
+        turn = turn === "X" ? "O" : "X";
+        win = getWinner();
 
-      updateWins(win)
-      render();
+        updateWins(win)
+        render();
+      }
     }
   }
 }
@@ -111,7 +128,5 @@ function reset() {
 }
 
 function setTurn(f) {
-  console.log("hffovuahoifghfoi");
-  turn = f;
-  console.log(turn);
-}
+  turn = f.target.id.charAt(0).toUpperCase(); /*"X" or "O"*/
+  message.textContent = `Turn: ${turn}`;}

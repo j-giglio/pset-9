@@ -82,8 +82,12 @@ h2 {
   cursor: pointer;
 }
 
-#winCount {
+#x-button:hover {
+  cursor: pointer;
+}
 
+#o-button:hover {
+  cursor: pointer;
 }
 
 #a {
