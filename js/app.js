@@ -134,3 +134,7 @@ function reset() {
 function setTurn(f) {
   turn = f.target.id.charAt(0).toUpperCase(); /*"X" or "O"*/
   message.textContent = `Turn: ${turn}`;}
+
+//|   |\  /|  /\
+//|   | \/ | (  )
+//|__ |    |  \/
