@@ -43,6 +43,7 @@ oButton.onclick = setTurn;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
+//this runs first
 function init() {
   turn = null;
   board = ["", "", "", "", "", "", "", "", ""];
