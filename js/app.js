@@ -77,6 +77,7 @@ function render() {
   winCount.textContent = `X: ${xWin} | O: ${oWin} | Tie: ${tieCount}`
 }
 
+//this is the one that runs when a square is clicked
 function takeTurn(e) {
   if(turn) {
     if (!win) {
