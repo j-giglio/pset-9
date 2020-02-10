@@ -52,7 +52,7 @@ function init() {
   message.appendChild(xButton);
   message.appendChild(messagePartTwo);
   message.appendChild(oButton);
-  message.appendChild(messagePartThree);
+  message.appendChild(messagePartThree); /*this whole setup is so janky but it works*/
   win = null;
 
   if (turn) {
