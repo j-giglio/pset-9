@@ -45,9 +45,9 @@ oButton.onclick = setTurn;
 
 //this runs first
 function init() {
-for (let b of squares) {
-  b.textContent = null;
-}
+  for (let b of squares) {
+    b.textContent = null;
+  }
   turn = null;
   board = ["", "", "", "", "", "", "", "", ""]; /*this one is the actual board*/
   message.textContent = null;
@@ -136,7 +136,8 @@ function reset() {
 
 function setTurn(f) {
   turn = f.target.id.charAt(0).toUpperCase(); /*"X" or "O"*/
-  message.textContent = `Turn: ${turn}`;}
+  message.textContent = `Turn: ${turn}`;
+}
 
 
 
