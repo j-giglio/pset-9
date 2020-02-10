@@ -113,6 +113,7 @@ function getWinner() {
   return winner ? winner : board.includes("") ? null : "T";
 }
 
+//these are the ones I added
 function updateWins(a) {
   if (a === "X") {
     xWin++
