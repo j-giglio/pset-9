@@ -45,6 +45,9 @@ oButton.onclick = setTurn;
 
 //this runs first
 function init() {
+for (let b of squares) {
+  b.textContent = null;
+}
   turn = null;
   board = ["", "", "", "", "", "", "", "", ""]; /*this one is the actual board*/
   message.textContent = null;
