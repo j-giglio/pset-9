@@ -46,7 +46,7 @@ oButton.onclick = setTurn;
 //this runs first
 function init() {
   turn = null;
-  board = ["", "", "", "", "", "", "", "", ""];
+  board = ["", "", "", "", "", "", "", "", ""]; /*this one is the actual board*/
   message.textContent = null;
   message.appendChild(messagePartOne);
   message.appendChild(xButton);
