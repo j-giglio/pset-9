@@ -84,6 +84,7 @@ h2 {
 
 #x-button:hover {
   cursor: pointer;
+  color: red
 }
 
 #o-button:hover {
