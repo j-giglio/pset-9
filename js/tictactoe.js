@@ -24,13 +24,12 @@ let tieCount = 0;
 
 const squares = Array.from(document.querySelectorAll("#board div"));
 const message = document.querySelector("h2");
-// const winCount = document.getElementById("winCount");
-// const messagePartOne = document.getElementById("messagePartOne");
+const winCount = document.getElementById("winCount");
+const messagePartOne = document.getElementById("messagePartOne");
 const xButton = document.getElementById("x-button");
-// const messagePartTwo = document.getElementById("messagePartTwo");
+const messagePartTwo = document.getElementById("messagePartTwo");
 const oButton = document.getElementById("o-button");
-// const messagePartThree = document.getElementById("messagePartThree");
-const messageInit = document.getElementById("page-header");
+const messagePartThree = document.getElementById("messagePartThree");
 
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
@@ -51,13 +50,12 @@ function init() {
   }
   turn = null;
   board = ["", "", "", "", "", "", "", "", ""]; /*this one is the actual board*/
-  console.log(messageInit);
-  message.textContent = messageInit;
-  // message.appendChild(messagePartOne);
-  // message.appendChild(xButton);
-  // message.appendChild(messagePartTwo);
-  // message.appendChild(oButton);
-  // message.appendChild(messagePartThree); /*this whole setup is so janky but it works*/
+  message.textContent = null;
+  message.appendChild(messagePartOne);
+  message.appendChild(xButton);
+  message.appendChild(messagePartTwo);
+  message.appendChild(oButton);
+  message.appendChild(messagePartThree); /*this whole setup is so janky but it works*/
   win = null;
 
   if (turn) {
