@@ -16,8 +16,8 @@ let columns = {
   column7: [null, null, null, null, null, null]
 }
 
-let xWin = 0;
-let oWin = 0;
+let redWin = 0;
+let yellowWin = 0;
 let tieCount = 0;
 
 ///////////////////// CACHED ELEMENT REFERENCES /////////////////////
@@ -61,8 +61,9 @@ function init() {
 function render() {
   for (column in columns) {
     column.forEach((circle) => {
+      ctx.fillStyle = (!circle) ? "white" : circle;
       ctx.beginPath();
-      ctx.arc(, , , 0, 2 * Math.PI);
+      ctx.arc(, , 43, 0, 2 * Math.PI);
       ctx.stroke();
       ctx.closePath();
     });
