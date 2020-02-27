@@ -6,13 +6,16 @@ const winningConditions = [
 
 ///////////////////// APP STATE (VARIABLES) /////////////////////////
 
-let column1 = ["", "", "", "", "", ""];
-let column2 = ["", "", "", "", "", ""];
-let column3 = ["", "", "", "", "", ""];
-let column4 = ["", "", "", "", "", ""];
-let column5 = ["", "", "", "", "", ""];
-let column6 = ["", "", "", "", "", ""];
-let column7 = ["", "", "", "", "", ""];
+let columns = {
+  column1: [null, null, null, null, null, null],
+  column2: [null, null, null, null, null, null],
+  column3: [null, null, null, null, null, null],
+  column4: [null, null, null, null, null, null],
+  column5: [null, null, null, null, null, null],
+  column6: [null, null, null, null, null, null],
+  column7: [null, null, null, null, null, null]
+}
+
 let xWin = 0;
 let oWin = 0;
 let tieCount = 0;
@@ -26,6 +29,8 @@ const redButton = document.getElementById("red-button");
 const messagePartTwo = document.getElementById("messagePartTwo");
 const yellowButton = document.getElementById("yellow-button");
 const messagePartThree = document.getElementById("messagePartThree");
+const canvas = document.getElementById('student-canvas-5');
+const ctx = canvas.getContext("2d");
 
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
@@ -40,12 +45,7 @@ yellowButton.onclick = setTurn;
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
-  for (let b of squares) {
-    b.textContent = null;
-  }
-  turn = null;
-  board = ["", "", "", "", "", "", "", "", ""]; /*this one is the actual board*/
-  message.textContent = null;
+
   message.appendChild(messagePartOne);
   message.appendChild(xButton);
   message.appendChild(messagePartTwo);
@@ -58,7 +58,17 @@ function init() {
   }
 }
 
+function render() {
+  for (column in columns) {
+    column.forEach((circle) => {
+      ctx.beginPath();
+      ctx.arc(, , , 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.closePath();
+    });
+  }
 
+}
 
 function updateWins(a) {
   // if (a === "X") {
@@ -80,12 +90,4 @@ function reset() {
 function setTurn(f) {
   turn = f.target.id.startsWith
   message.textContent = `Turn: ${turn}`;
-}
-
-function lastNullElement(z){
-  for (let i = z.length; i < z.length; i--){
-    if (!z[i]) {
-      return i;
-    }
-  }
 }
