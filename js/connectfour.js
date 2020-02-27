@@ -59,10 +59,10 @@ window.onload = /*init;*/ render;
 
 function render() {
   let xCoord = 80;
-  let yCoord = 80;
+  let yCoord;
 
   columns.forEach((column) => { /*x direction*/
-    yCoord = 80;
+    yCoord = 68;
     column.forEach((circle) => { /*y direction*/
       ctx.fillStyle = (!circle) ? "white" : circle;
       ctx.beginPath();
@@ -70,7 +70,6 @@ function render() {
       ctx.fill();
       ctx.closePath();
       yCoord += 106;
-      console.log(xCoord + ", " + yCoord)
     });
     xCoord += 106;
   });

@@ -22,10 +22,8 @@ h2 {
   align-items: center;
 }
 
-.masterbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.column {
+  flex-direction: column;
 }
 
 .wrap {
