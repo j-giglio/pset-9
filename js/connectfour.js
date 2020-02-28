@@ -40,13 +40,13 @@ const winCount = document.getElementById("winCount")
 window.onload = init;
 document.getElementById("reset-button").onclick = init;
 document.getElementById("win-reset").onclick = reset;
-document.getElementsByClassName("button1").onclick = takeTurn;
-document.getElementsByClassName("button2").onclick = takeTurn;
-document.getElementsByClassName("button3").onclick = takeTurn;
-document.getElementsByClassName("button4").onclick = takeTurn;
-document.getElementsByClassName("button5").onclick = takeTurn;
-document.getElementsByClassName("button6").onclick = takeTurn;
-document.getElementsByClassName("button7").onclick = takeTurn;
+document.getElementById("button1").onclick = takeTurn;
+document.getElementById("button2").onclick = takeTurn;
+document.getElementById("button3").onclick = takeTurn;
+document.getElementById("button4").onclick = takeTurn;
+document.getElementById("button5").onclick = takeTurn;
+document.getElementById("button6").onclick = takeTurn;
+document.getElementById("button7").onclick = takeTurn;
 // redButton.onclick = setTurn;
 // yellowButton.onclick = setTurn;
 
@@ -114,7 +114,7 @@ function reset() {
   winCount.textContent = "Red: 0 | Yellow: 0 | Tie: 0";
 }
 
-// function setTurn(f) {
-//   turn = f.target.id.startsWith
-//   message.textContent = `Turn: ${turn}`;
-// }
+function setTurn(f) {
+  turn = f.target.id.substring(7);
+  message.textContent = `Turn: ${turn}`;
+}
