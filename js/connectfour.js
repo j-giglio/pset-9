@@ -17,6 +17,7 @@ let columns = [
 ]
 
 let turn;
+let win;
 let redWin = 0;
 let yellowWin = 0;
 let tieCount = 0;
@@ -37,12 +38,11 @@ const winCount = document.getElementById("winCount")
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
 window.onload = init;
-//
-// document.getElementById("board").onclick = takeTurn;
 document.getElementById("reset-button").onclick = init;
 document.getElementById("win-reset").onclick = reset;
-redButton.onclick = setTurn;
-yellowButton.onclick = setTurn;
+document.getElementsByClassName("drop-button").onclick = takeTurn;
+// redButton.onclick = setTurn;
+// yellowButton.onclick = setTurn;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
@@ -76,6 +76,21 @@ function render() {
   });
 }
 
+function takeTurn(e) {
+  console.log("yeet")
+  console.log(e);
+
+  // if(turn) {
+  //   if (!win) {
+  //
+  //
+  //     updateWins(win)
+  //     render();
+  //
+  //   }
+  // }
+}
+
 // function updateWins(a) {
 //   // if (a === "X") {
 //   //   xWin++
@@ -93,7 +108,7 @@ function reset() {
   winCount.textContent = "Red: 0 | Yellow: 0 | Tie: 0";
 }
 
-function setTurn(f) {
-  turn = f.target.id.startsWith
-  message.textContent = `Turn: ${turn}`;
-}
+// function setTurn(f) {
+//   turn = f.target.id.startsWith
+//   message.textContent = `Turn: ${turn}`;
+// }
