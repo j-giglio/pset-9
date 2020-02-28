@@ -40,7 +40,13 @@ const winCount = document.getElementById("winCount")
 window.onload = init;
 document.getElementById("reset-button").onclick = init;
 document.getElementById("win-reset").onclick = reset;
-document.getElementsByClassName("drop-button").onclick = takeTurn;
+document.getElementsByClassName("button1").onclick = takeTurn;
+document.getElementsByClassName("button2").onclick = takeTurn;
+document.getElementsByClassName("button3").onclick = takeTurn;
+document.getElementsByClassName("button4").onclick = takeTurn;
+document.getElementsByClassName("button5").onclick = takeTurn;
+document.getElementsByClassName("button6").onclick = takeTurn;
+document.getElementsByClassName("button7").onclick = takeTurn;
 // redButton.onclick = setTurn;
 // yellowButton.onclick = setTurn;
 
