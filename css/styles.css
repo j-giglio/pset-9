@@ -51,7 +51,7 @@ h2 {
 }
 
 .drop-button {
-  font-size: 33px;
+  font-size: 35px;
 }
 
 #reset-button {
@@ -98,12 +98,12 @@ h2 {
   color: red
 }
 
-#red-button:hover {
+#button-red:hover {
   cursor: pointer;
   color: red
 }
 
-#yellow-button:hover {
+#button-yellow:hover {
   cursor: pointer;
   color: yellow;
 }

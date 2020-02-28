@@ -47,8 +47,8 @@ document.getElementById("button4").onclick = takeTurn;
 document.getElementById("button5").onclick = takeTurn;
 document.getElementById("button6").onclick = takeTurn;
 document.getElementById("button7").onclick = takeTurn;
-// redButton.onclick = setTurn;
-// yellowButton.onclick = setTurn;
+redButton.onclick = setTurn;
+yellowButton.onclick = setTurn;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
@@ -65,6 +65,12 @@ function init() {
 }
 
 function render() {
+  message.textContent =
+    win === "T" ? "It's a tie!"
+      : win ? `${win} wins!` : `Turn: ${turn}`;
+  winCount.textContent = `X: ${xWin} | O: ${oWin} | Tie: ${tieCount}`
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   let xCoord = 80;
   let yCoord;
 
@@ -83,25 +89,33 @@ function render() {
 }
 
 function takeTurn(e) {
-  console.log("yeet")
-  console.log(e);
+  if(turn) {
+    if (!win) {
+      let targetColumn = columns[Number(e.target.id.charAt(6)) - 1];
+      targetColumn[targetColumn.lastIndexOf(null)] = turn;
+      turn = turn === "red" ? "yellow" : "red";
+      win = getWinner;
+      // updateWins(win)
+      render();
 
-  // if(turn) {
-  //   if (!win) {
-  //
-  //
-  //     updateWins(win)
-  //     render();
-  //
-  //   }
-  // }
+    }
+  }
+}
+
+function getWinner() {
+  let winner = null;
+
+  //these check for vertical wins
+  
+
+  return winner ? winner : board.includes("") ? null : "T";
 }
 
 // function updateWins(a) {
-//   // if (a === "X") {
-//   //   xWin++
-//   // } else if (a === "O") {
-//   //   oWin++
+//   // if (a === "red") {
+//   //   redWin++
+//   // } else if (a === "yellow") {
+//   //   yellowWin++
 //   // } else if (a === "T") {
 //   //   tieCount++
 //   // }
@@ -116,5 +130,6 @@ function reset() {
 
 function setTurn(f) {
   turn = f.target.id.substring(7);
+  console.log(turn);
   message.textContent = `Turn: ${turn}`;
 }
