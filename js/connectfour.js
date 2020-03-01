@@ -6,16 +6,7 @@ const winningConditions = [
 
 ///////////////////// APP STATE (VARIABLES) /////////////////////////
 
-let columns = [
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null]
-]
-
+let columns;
 let turn;
 let win;
 let redWin = 0;
@@ -53,6 +44,18 @@ yellowButton.onclick = setTurn;
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
+
+  turn = null;
+  columns = [
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null],
+    [null, null, null, null, null, null]
+  ];
+  message.innerHTML = ""
   message.appendChild(messagePartOne);
   message.appendChild(redButton);
   message.appendChild(messagePartTwo);
@@ -65,10 +68,12 @@ function init() {
 }
 
 function render() {
-  message.textContent =
-    win === "T" ? "It's a tie!"
-      : win ? `${win} wins!` : `Turn: ${turn}`;
-  winCount.textContent = `X: ${xWin} | O: ${oWin} | Tie: ${tieCount}`
+  if (turn){
+    message.textContent =
+      win === "T" ? "It's a tie!"
+        : win ? `${win} wins!` : `Turn: ${turn}`;
+      winCount.textContent = `Red: ${redWin} | Yellow: ${yellowWin} | Tie: ${tieCount}`
+  }
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   let xCoord = 80;
@@ -92,12 +97,14 @@ function takeTurn(e) {
   if(turn) {
     if (!win) {
       let targetColumn = columns[Number(e.target.id.charAt(6)) - 1];
-      targetColumn[targetColumn.lastIndexOf(null)] = turn;
-      turn = turn === "red" ? "yellow" : "red";
-      win = getWinner;
-      // updateWins(win)
-      render();
 
+      if (targetColumn.includes(null)) {
+        targetColumn[targetColumn.lastIndexOf(null)] = turn;
+        turn = turn === "red" ? "yellow" : "red";
+        win = getWinner();
+        updateWins(win)
+        render();
+      }
     }
   }
 }
@@ -105,21 +112,60 @@ function takeTurn(e) {
 function getWinner() {
   let winner = null;
 
-  //these check for vertical wins
-  
+  //this checks for vertical wins
+  for (let j = 0; j < 6 && !winner; j++) {
+    column = columns[j];
+    for (let i = 3; i <= 5 && !winner; i++) {
+      winner = (column[i] === "red" && column[i - 1] === "red" && column[i - 2] === "red" && column[i - 3] === "red")
+        ? "red"
+        : (column[i] === "yellow" && column[i - 1] === "yellow" && column[i - 2] === "yellow" && column[i - 3] === "yellow")
+        ? "yellow"
+        : null;
+    }
+  };
 
-  return winner ? winner : board.includes("") ? null : "T";
+  //this one does horizontal ones
+  for (let j = 3; j <= 6 && !winner; j++) {
+    for (let i = 0; i <= 5 && !winner; i++) {
+      winner = (columns[j][i] === "red" && columns[j - 1][i] === "red" && columns[j - 2][i] === "red" && columns[j - 3][i] === "red")
+        ? "red"
+        : (columns[j][i] === "yellow" && columns[j - 1][i] === "yellow" && columns[j - 2][i] === "yellow" && columns[j - 3][i] === "yellow")
+        ? "yellow"
+        : null;
+    }
+  };
+
+  //this one does diagonal ones
+  for (let j = 3; j <= 6 && !winner; j++) {
+    for (let i = 0; i <= 5 && !winner; i++) {
+      winner = (columns[j][i] === "red" && columns[j - 1][i + 1] === "red" && columns[j - 2][i + 2] === "red" && columns[j - 3][i + 3] === "red") || (columns[j][i] === "red" && columns[j - 1][i - 1] === "red" && columns[j - 2][i - 2] === "red" && columns[j - 3][i - 3] === "red")
+        ? "red"
+        : (columns[j][i] === "yellow" && columns[j - 1][i + 1] === "yellow" && columns[j - 2][i + 2] === "yellow" && columns[j - 3][i + 3] === "yellow") || (columns[j][i] === "yellow" && columns[j - 1][i - 1] === "yellow" && columns[j - 2][i - 2] === "yellow" && columns[j - 3][i - 3] === "yellow")
+        ? "yellow"
+        : null;
+    }
+  };
+
+  let isBlankSpaces = false;
+
+  for (let i = 0; i <= 6 && isBlankSpaces === false; i++) {
+
+    isBlankSpaces = columns[i].includes(null);
+
+  };
+
+  return winner ? winner : isBlankSpaces ? null : "T";
 }
 
-// function updateWins(a) {
-//   // if (a === "red") {
-//   //   redWin++
-//   // } else if (a === "yellow") {
-//   //   yellowWin++
-//   // } else if (a === "T") {
-//   //   tieCount++
-//   // }
-// }
+function updateWins(a) {
+  if (a === "red") {
+    redWin++
+  } else if (a === "yellow") {
+    yellowWin++
+  } else if (a === "T") {
+    tieCount++
+  }
+}
 
 function reset() {
   redWin = 0;
@@ -130,6 +176,5 @@ function reset() {
 
 function setTurn(f) {
   turn = f.target.id.substring(7);
-  console.log(turn);
   message.textContent = `Turn: ${turn}`;
 }

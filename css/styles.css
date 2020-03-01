@@ -16,6 +16,10 @@ h2 {
   margin: 2%;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   justify-content: center;
