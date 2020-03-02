@@ -58,6 +58,10 @@ button:hover {
   font-size: 35px;
 }
 
+.brickbreaker-board {
+  background-color: lightgray;
+}
+
 #site-header {
   font-size: 20px;
   font-family: "Major Mono Display", monospace;
