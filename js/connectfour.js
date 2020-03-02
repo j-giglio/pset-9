@@ -100,6 +100,17 @@ function takeTurn(e) {
 
       if (targetColumn.includes(null)) {
         targetColumn[targetColumn.lastIndexOf(null)] = turn;
+//         let targetCircle = targetColumn.lastIndexOf(null);
+//         for (let i = 0; i <= targetCircle; i++) {
+//           // if (i > 0) {
+//           //   targetColumn[i - 1] = null;
+//           // }
+// console.log(targetColumn[i]);
+//           targetColumn[i] = turn;
+//           console.log(targetColumn[i]);
+//           console.log(columns);
+//           setTimeout(render, 500);
+//         }
         turn = turn === "red" ? "yellow" : "red";
         win = getWinner();
         updateWins(win)
