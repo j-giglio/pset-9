@@ -57,7 +57,8 @@ function drawBall() {
   ball.y += ball.deltaY;
 
   if (ball.y === canvas.height - 10) {
-    gameOver();
+//     gameOver();
+    ball.deltaY = -ball.deltaY; //delete later
   }
 
   if (ball.y === 10 || (ball.x <= paddleX - 10 && ball.x >= paddleX + 90/* && ball.y === canvas.height - 35*/)) {
