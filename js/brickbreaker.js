@@ -42,7 +42,7 @@ function init() {
 }
 
 function draw() {
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPaddle();
   drawBall();
 }
@@ -57,8 +57,7 @@ function drawBall() {
   ball.y += ball.deltaY;
 
   if (ball.y === canvas.height - 10) {
-//     gameOver();
-    ball.deltaY = -ball.deltaY; //delete later
+    gameOver();
   }
 
   if (ball.y === 10 || (ball.x <= paddleX - 10 && ball.x >= paddleX + 90/* && ball.y === canvas.height - 35*/)) {
