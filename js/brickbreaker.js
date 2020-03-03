@@ -15,6 +15,8 @@ let ball = {
   y: canvas.height - 30,
 }
 
+let paddleX = (canvas.width / 2) - 40
+
 let boxes = [
 
 ];
@@ -36,11 +38,16 @@ function init() {
   }
 
   gameStarted = true;
-  setInterval(drawBall, 10);
+  setInterval(draw, 10);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawPaddle();
+  drawBall();
 }
 
 function drawBall() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
   ctx.fillStyle = "#952000";
@@ -53,37 +60,41 @@ function drawBall() {
     gameOver();
   }
 
-  if (ball.y === 10) {
-    updateDeltaY();
+  if (ball.y === 10 || (ball.x <= paddleX - 10 && ball.x >= paddleX + 90/* && ball.y === canvas.height - 35*/)) {
+    ball.deltaY = -ball.deltaY;
   }
 
   if (ball.x === canvas.width - 10 || ball.x === 10) {
-    updateDeltaX();
+    ball.deltaX = -ball.deltaX;
   }
 }
 
-function updateDeltaX() {
-  ball.deltaX += -2 * ball.deltaX;
-}
-
-function updateDeltaY() {
-  ball.deltaY += -2 * ball.deltaY;
+function drawPaddle() {
+  ctx.beginPath();
+  ctx.rect(paddleX, canvas.height - 25, 80, 10);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
 }
 
 function movePaddle() {
   if (gameStarted) {
-    if (event.keyCode == 37) {
-      let timer = setInterval(() => paddle.x -= paddle.movement, 4);
-        setTimeout(() => { clearInterval(timer); }, 100);
+    if (event.keyCode == 37 && paddleX !== 0) {
+      paddleX -= 15;
+      // let timer = setInterval(() => paddleX--, 4);
+      // setTimeout(() => { clearInterval(timer); }, 100);
+    } else if (event.keyCode == 39 && paddleX !== canvas.width - 80) {
+      paddleX += 15;
+      // let timer2 = setInterval(() => paddleX++, 4);
+      // setTimeout(() => { clearInterval(timer2); }, 100);
     }
-      else if (event.keyCode == 39) {
-        let timer2 = setInterval(() => paddle.x += paddle.movement, 4);
-          setTimeout(() => { clearInterval(timer2); }, 100);
-    }
+    drawPaddle();
   }
 }
 
 function gameOver() {
+  ball.deltaX = 0;
+  ball.deltaY = 0;
   gameStarted = false;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
