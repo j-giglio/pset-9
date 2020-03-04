@@ -17,9 +17,7 @@ let ball = {
 
 let paddleX = (canvas.width / 2) - 40
 
-let boxes = [
-
-];
+let boxes;
 
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
@@ -29,6 +27,11 @@ document.addEventListener("keydown", movePaddle);
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
+  boxes = [
+    [true, true],
+    [true, true],
+  ];
+
   ball = {
     radius: 10,
     x: canvas.width / 2,
@@ -43,8 +46,10 @@ function init() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPaddle();
+  drawBoxes();
   drawBall();
+  drawPaddle();
+
 }
 
 function drawBall() {
@@ -90,6 +95,29 @@ function movePaddle() {
     }
     drawPaddle();
   }
+}
+
+function drawBoxes() {
+  let boxCounterY = 0;
+  let spaceCounterY = 1;
+  console.log("y");
+  boxes.forEach((row) => {
+    let boxCounterX = 0;
+    let spaceCounterX = 1
+    row.forEach((box) => {
+      if(box) {
+        ctx.beginPath();
+        ctx.rect((10 * spaceCounterX) + (75 *boxCounterX), (10 * spaceCounterY) + (45 *boxCounterY), 75, 45);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+        boxCounterX++;
+        spaceCounterX++;
+      }
+      boxCounterY++;
+      spaceCounterY++;
+    });
+  });
 }
 
 function gameOver() {
