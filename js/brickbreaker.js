@@ -140,6 +140,8 @@ function gameOver() {
   ball.deltaY = 0;
   gameStarted = false;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "48px sans-serif";
+  ctx.fillText("Game Over", canvas.width / 2, canvas.height /2, 994);
 }
 
 function victory() {
