@@ -36,7 +36,7 @@ function init() {
     deltaX: 2,
     deltaY: -2,
   }
-
+  console.log(ball.deltaX + ",   " + ball.deltaY)
   gameStarted = true;
   setInterval(draw, 10);
 }
@@ -60,7 +60,7 @@ function drawBall() {
     gameOver();
   }
 
-  if (ball.y === 10 || (ball.x <= paddleX - 10 && ball.x >= paddleX + 90/* && ball.y === canvas.height - 35*/)) {
+  if (ball.y === 10 || (ball.x >= paddleX - 15 && ball.x <= paddleX + 95 && ball.y === canvas.height - 20)) {
     ball.deltaY = -ball.deltaY;
   }
 
@@ -71,7 +71,7 @@ function drawBall() {
 
 function drawPaddle() {
   ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - 25, 80, 10);
+  ctx.rect(paddleX, canvas.height - 10, 80, 10);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
