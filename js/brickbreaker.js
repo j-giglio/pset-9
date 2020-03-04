@@ -28,8 +28,9 @@ document.addEventListener("keydown", movePaddle);
 
 function init() {
   boxes = [
-    [true, true],
-    [true, true],
+    [true, true, true, true, true, true, true, true, true],
+    [true, true, true, true, true, true, true, true, true],
+    [true, true, true, true, true, true, true, true, true]
   ];
 
   ball = {
@@ -75,11 +76,13 @@ function drawBall() {
 }
 
 function drawPaddle() {
-  ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - 10, 80, 10);
-  ctx.fillStyle = "#0095DD";
-  ctx.fill();
-  ctx.closePath();
+  if (gameStarted) {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - 10, 80, 10);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  }
 }
 
 function movePaddle() {
@@ -100,27 +103,31 @@ function movePaddle() {
 function drawBoxes() {
   let boxCounterY = 0;
   let spaceCounterY = 1;
-  console.log("y");
   boxes.forEach((row) => {
     let boxCounterX = 0;
-    let spaceCounterX = 1
+    let spaceCounterX = 22
     row.forEach((box) => {
       if(box) {
         ctx.beginPath();
-        ctx.rect((10 * spaceCounterX) + (75 *boxCounterX), (10 * spaceCounterY) + (45 *boxCounterY), 75, 45);
+        ctx.rect((spaceCounterX) + (75 *boxCounterX), (10 * spaceCounterY) + (45 *boxCounterY), 75, 45);
         ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
         boxCounterX++;
-        spaceCounterX++;
+        spaceCounterX += 10;
       }
-      boxCounterY++;
-      spaceCounterY++;
     });
+    boxCounterY++;
+    spaceCounterY++;
   });
 }
 
+function sideCollision() {
+  
+}
+
 function gameOver() {
+
   ball.deltaX = 0;
   ball.deltaY = 0;
   gameStarted = false;
