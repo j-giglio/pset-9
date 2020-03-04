@@ -27,10 +27,10 @@ document.addEventListener("keydown", movePaddle);
 ///////////////////// FUNCTIONS /////////////////////////////////////
 
 function init() {
-  boxes = [
-    [true, true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true, true],
-    [true, true, true, true, true, true, true, true, true]
+boxes = [
+  [{x1: 17, x2: 92, y1: 22, y2: 67, exists: true}, {x1: 103, x2: 178, y1: 22, y2: 67, exists: true}, {x1: 189, x2: 265, y1: 22, y2: 67, exists: true}, {x1: 276, x2: 351, y1: 22, y2: 67, exists: true}, {x1: 362, x2: 437, y1: 22, y2: 67, exists: true}, {x1: 448, x2: 523, y1: 22, y2: 67, exists: true}, {x1: 534, x2: 609, y1: 22, y2: 67, exists: true}, {x1: 620, x2: 696, y1: 22, y2: 67, exists: true}, {x1: 707, x2: 782, y1: 22, y2: 67, exists: true}],
+    [{x1: 17, x2: 92, y1: 77, y2: 113, exists: true}, {x1: 103, x2: 178, y1: 77, y2: 113, exists: true}, {x1: 189, x2: 265, y1: 77, y2: 113, exists: true}, {x1: 276, x2: 351, y1: 77, y2: 113, exists: true}, {x1: 362, x2: 437, y1: 77, y2: 113, exists: true}, {x1: 448, x2: 523, y1: 77, y2: 113, exists: true}, {x1: 534, x2: 609, y1: 77, y2: 113, exists: true}, {x1: 620, x2: 696, y1: 77, y2: 113, exists: true}, {x1: 707, x2: 782, y1: 77, y2: 113, exists: true}],
+    [{x1: 17, x2: 92, y1: 133, y2: 150, exists: true}, {x1: 103, x2: 178, y1: 133, y2: 150, exists: true}, {x1: 189, x2: 265, y1: 133, y2: 150, exists: true}, {x1: 276, x2: 351, y1: 133, y2: 150, exists: true}, {x1: 362, x2: 437, y1: 133, y2: 150, exists: true}, {x1: 448, x2: 523, y1: 133, y2: 150, exists: true}, {x1: 534, x2: 609, y1: 133, y2: 150, exists: true}, {x1: 620, x2: 696, y1: 133, y2: 150, exists: true}, {x1: 707, x2: 782, y1: 133, y2: 150, exists: true}]
   ];
 
   ball = {
@@ -43,6 +43,7 @@ function init() {
   console.log(ball.deltaX + ",   " + ball.deltaY)
   gameStarted = true;
   setInterval(draw, 10);
+  // draw();
 }
 
 function draw() {
@@ -50,7 +51,7 @@ function draw() {
   drawBoxes();
   drawBall();
   drawPaddle();
-
+  collision();
 }
 
 function drawBall() {
@@ -67,12 +68,20 @@ function drawBall() {
   }
 
   if (ball.y === 10 || (ball.x >= paddleX - 15 && ball.x <= paddleX + 95 && ball.y === canvas.height - 20)) {
-    ball.deltaY = -ball.deltaY;
+    updateY();
   }
 
   if (ball.x === canvas.width - 10 || ball.x === 10) {
-    ball.deltaX = -ball.deltaX;
+    updateX();
   }
+}
+
+function updateX() {
+  ball.deltaX = -ball.deltaX;
+}
+
+function updateY() {
+  ball.deltaY = -ball.deltaY;
 }
 
 function drawPaddle() {
@@ -89,45 +98,44 @@ function movePaddle() {
   if (gameStarted) {
     if (event.keyCode == 37 && paddleX !== 0) {
       paddleX -= 15;
-      // let timer = setInterval(() => paddleX--, 4);
-      // setTimeout(() => { clearInterval(timer); }, 100);
     } else if (event.keyCode == 39 && paddleX !== canvas.width - 80) {
       paddleX += 15;
-      // let timer2 = setInterval(() => paddleX++, 4);
-      // setTimeout(() => { clearInterval(timer2); }, 100);
     }
-    drawPaddle();
   }
 }
 
 function drawBoxes() {
-  let boxCounterY = 0;
-  let spaceCounterY = 1;
   boxes.forEach((row) => {
-    let boxCounterX = 0;
-    let spaceCounterX = 22
     row.forEach((box) => {
-      if(box) {
+      if (box.exists) {
         ctx.beginPath();
-        ctx.rect((spaceCounterX) + (75 *boxCounterX), (10 * spaceCounterY) + (45 *boxCounterY), 75, 45);
+        ctx.rect(box.x1, box.y1, 75, 45);
         ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
-        boxCounterX++;
-        spaceCounterX += 10;
       }
     });
-    boxCounterY++;
-    spaceCounterY++;
   });
 }
 
-function sideCollision() {
-  
+function collision() {
+  boxes.forEach((row) => {
+    row.forEach((box) => {
+      if (box.exists) {
+        box.exists = !(ball.x >= box.x1 - 10 && ball.x <= box.x2 + 10 && ball.y >= box.y1 - 10 && ball.y <= box.y2 + 10)
+        if (!box.exists) {
+          if (ball.y < box.y2 - 10 || ball.y > box.y1 + 10) {
+            updateY();
+          } else {
+            updateX();
+          }
+        }
+      }
+    });
+  });
 }
 
 function gameOver() {
-
   ball.deltaX = 0;
   ball.deltaY = 0;
   gameStarted = false;
